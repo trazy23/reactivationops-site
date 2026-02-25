@@ -6,185 +6,574 @@
   <title>ReactivationOps — Turn Dormant Leads Into Qualified Calls</title>
   <meta name="description" content="Done-for-you reactivation sprint for B2B service firms. Turn old leads into fresh conversations in days, not months." />
   <style>
-    :root{
-      --bg:#0a1020;
-      --card:#111a31;
-      --line:#24385f;
-      --text:#e6ecff;
-      --muted:#9fb2de;
-      --green:#22c55e;
-      --blue:#93c5fd;
-      --blueDark:#0e2b62;
+    :root {
+      --bg: #f6f8fc;
+      --surface: #ffffff;
+      --surface-soft: #f3f6fb;
+      --line: #dbe4f2;
+      --line-strong: #c7d5eb;
+      --text: #0f1a2f;
+      --muted: #4f5f78;
+      --brand: #234c93;
+      --brand-dark: #17366d;
+      --accent: #18a957;
+      --accent-dark: #127840;
+      --highlight: #eef4ff;
+      --shadow: 0 24px 48px rgba(12, 30, 71, 0.08);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
     }
-    *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(1200px 500px at 50% -20%, #1a2f58 0%, var(--bg) 55%);font-family:-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:var(--text);line-height:1.5}
-    .wrap{max-width:1020px;margin:36px auto;padding:0 18px 36px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px}
-    .pill{display:inline-block;border:1px solid #35538f;background:#1a2e5a;border-radius:999px;padding:4px 10px;font-size:12px;margin:0 7px 7px 0;color:#c9d8ff}
-    h1{font-size:44px;line-height:1.1;margin:8px 0 12px;letter-spacing:-0.02em}
-    h2{font-size:29px;margin:0 0 10px}
-    h3{font-size:21px;margin:0 0 8px}
-    p{margin:0 0 12px}
-    .muted{color:var(--muted)}
-    .lead{font-size:20px;max-width:860px}
-    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-    .btn{display:inline-block;padding:13px 18px;border-radius:10px;font-weight:800;text-decoration:none}
-    .btn-core{background:var(--green);color:#062b16}
-    .btn-fast{background:var(--blue);color:var(--blueDark)}
-    .btn-ghost{border:1px solid #3b5e9c;color:#dbe8ff;background:#122344}
-    .proof{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-    .proof div{border:1px solid var(--line);background:#0f1730;border-radius:10px;padding:12px}
-    .proof b{display:block;font-size:18px}
-    .section{margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    ul{margin:8px 0 0 18px;padding:0}
-    li{margin:7px 0}
-    .steps{counter-reset:step;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .steps li{border:1px solid var(--line);background:#0f1730;border-radius:12px;padding:14px}
-    .steps li b{display:block;margin-bottom:4px}
-    .steps li b::before{counter-increment:step;content:counter(step) ") ";color:#8cb3ff}
-    .faq details{border:1px solid var(--line);background:#0f1730;border-radius:10px;padding:12px 14px;margin-bottom:10px}
-    .faq summary{cursor:pointer;font-weight:700}
-    .cta{border:1px solid #2f4f8b;background:linear-gradient(180deg,#142850,#0e1f40);border-radius:14px;padding:20px;margin-top:24px}
-    .fine{font-size:13px;color:#9eb2de}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    @media (max-width:850px){
-      h1{font-size:35px}
-      .lead{font-size:18px}
-      .proof,.grid2,.steps{grid-template-columns:1fr}
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(180deg, #f5f8ff 0%, var(--bg) 35%, #f7f9fc 100%);
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: var(--brand); }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 34px auto 56px;
+      padding: 0 18px;
+    }
+
+    .site {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 26px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-soft);
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(145deg, var(--brand) 0%, #3d6fbe 100%);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .trustline {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .hero {
+      padding: 34px 26px 30px;
+      background:
+        radial-gradient(900px 320px at 95% -10%, #e7efff 0%, transparent 55%),
+        radial-gradient(700px 280px at -5% 20%, #edf5ff 0%, transparent 60%),
+        var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      border: 1px solid #cddaf1;
+      background: #f4f8ff;
+      color: #33558d;
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .01em;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      max-width: 940px;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.36rem, 2.5vw, 2rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    p { margin: 0 0 12px; }
+    .muted { color: var(--muted); }
+    .lead { font-size: clamp(1.06rem, 1.7vw, 1.28rem); max-width: 920px; }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 18px;
+      border-radius: 11px;
+      font-weight: 800;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-core {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(24, 169, 87, 0.28);
+    }
+
+    .btn-core:hover { background: var(--accent-dark); }
+
+    .btn-fast {
+      background: #dce9ff;
+      color: var(--brand-dark);
+      border-color: #bfd2f9;
+    }
+
+    .btn-fast:hover { background: #d2e2ff; }
+
+    .btn-ghost {
+      border-color: #c5d4ee;
+      background: #fff;
+      color: var(--brand-dark);
+    }
+
+    .btn-ghost:hover { background: #f8fbff; }
+
+    .fine { font-size: 13px; color: #5f6f89; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-all; }
+
+    .section {
+      padding: 28px 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .proof {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .proof div {
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+
+    .proof b {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .identity-strip {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--highlight);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .identity-strip div {
+      padding: 12px;
+      border-right: 1px solid #d3def2;
+      font-size: 13px;
+      color: #3e4f6b;
+    }
+
+    .identity-strip div:last-child { border-right: none; }
+
+    .feature-card,
+    .process-card,
+    .trust-card,
+    .legal-card {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    ul { margin: 8px 0 0 18px; padding: 0; }
+    li { margin: 7px 0; }
+
+    .steps {
+      list-style: none;
+      counter-reset: step;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .steps li {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface-soft);
+      padding: 14px;
+    }
+
+    .steps li b {
+      display: block;
+      margin-bottom: 4px;
+      color: #1c386d;
+    }
+
+    .steps li b::before {
+      counter-increment: step;
+      content: counter(step) ") ";
+      color: #5a7dc1;
+    }
+
+    .standards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .trust-card h3 { color: #203d74; }
+    .trust-card p { margin: 0; font-size: 14px; color: #42536e; }
+
+    .faq details {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: #fbfdff;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .faq summary { cursor: pointer; font-weight: 700; }
+
+    .cta {
+      border: 1px solid var(--line-strong);
+      background: linear-gradient(180deg, #f5f9ff 0%, #edf4ff 100%);
+      border-radius: 16px;
+      padding: 22px;
+      margin-top: 8px;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .footer {
+      background: #f7fafe;
+      border-top: 1px solid var(--line);
+      padding: 22px 26px 24px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer small { color: #5e6f8b; }
+
+    .footer-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .anchor-section {
+      scroll-margin-top: 24px;
+    }
+
+    @media (max-width: 980px) {
+      .identity-strip { grid-template-columns: 1fr 1fr; }
+      .standards { grid-template-columns: 1fr 1fr; }
+      .contact { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 860px) {
+      .wrap { margin: 20px auto 34px; }
+      .site { border-radius: 16px; }
+      .topbar, .hero, .section, .footer { padding-left: 16px; padding-right: 16px; }
+      .proof, .grid2, .steps, .standards { grid-template-columns: 1fr; }
+      .trustline { text-align: left; }
+      .btn { width: 100%; text-align: center; }
+      .row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="card">
-    <div>
-      <span class="pill">B2B Services</span>
-      <span class="pill">Done-For-You Sprint</span>
-      <span class="pill">72h Standard Delivery</span>
-      <span class="pill">Upfront, Fixed Scope</span>
-    </div>
-
-    <h1>Your old leads are not dead.<br/>They were just never reactivated correctly.</h1>
-    <p class="lead muted">ReactivationOps builds and ships a focused reactivation sprint so you can turn dormant pipeline into qualified conversations this week—not “someday” when your team finally has time.</p>
-
-    <div class="row">
-      <a class="btn btn-core" href="https://buy.stripe.com/4gM5kCbDS5mU3R6gaW4Rq00" target="_blank" rel="noopener">Start Core Sprint — $750</a>
-      <a class="btn btn-fast" href="https://buy.stripe.com/aFa5kC7nCcPmbjy2k64Rq01" target="_blank" rel="noopener">Fast Track (48h) — $1,000</a>
-      <a class="btn btn-ghost" href="mailto:hello@reactivationops.com?subject=ReactivationOps%20Scope%20Question">Ask a scope question</a>
-    </div>
-    <p class="fine">Checkout links: <span class="mono">buy.stripe.com/4gM5kCbDS5mU3R6gaW4Rq00</span> and <span class="mono">buy.stripe.com/aFa5kC7nCcPmbjy2k64Rq01</span></p>
-
-    <div class="proof">
-      <div><b>72h</b><span class="muted">Standard delivery from intake completion</span></div>
-      <div><b>5 Assets</b><span class="muted">Segmentation, sequence, follow-ups, reply script, handoff</span></div>
-      <div><b>1 Goal</b><span class="muted">More qualified replies and booked conversations</span></div>
-    </div>
-
-    <div class="section grid2">
-      <div>
-        <h2>If this sounds familiar, you’re our ideal client.</h2>
-        <ul>
-          <li>You have a list of old leads, but no structured reactivation motion.</li>
-          <li>Your pipeline feels thin, while past opportunities sit untouched.</li>
-          <li>Your team is busy closing work, not rebuilding outbound campaigns.</li>
-          <li>You need momentum now, not a 6-week strategy project.</li>
-        </ul>
-      </div>
-      <div>
-        <h2>What changes after launch</h2>
-        <ul>
-          <li>Old contacts start replying with current intent and timing.</li>
-          <li>Your qualification flow gets tighter and easier to execute.</li>
-          <li>Booking handoffs become faster and cleaner for your sales team.</li>
-          <li>You gain a repeatable reactivation playbook you can reuse.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>What’s included in the sprint</h2>
-      <div class="grid2">
-        <div>
-          <h3>Core deliverables</h3>
-          <ul>
-            <li>Lead segmentation rules for dormant opportunities</li>
-            <li>3-email reactivation sequence</li>
-            <li>2 follow-up variants for non-responders</li>
-            <li>Reply handling + qualification script</li>
-            <li>Booking handoff template for your team</li>
-            <li>7-day optimization memo after launch</li>
-          </ul>
+  <div class="wrap">
+    <div class="site">
+      <div class="topbar">
+        <div class="brand">
+          <span class="brand-mark">RO</span>
+          <span>ReactivationOps</span>
         </div>
-        <div>
-          <h3>Execution standards</h3>
-          <ul>
-            <li>Direct-response copy built for busy B2B buyers</li>
-            <li>Messaging aligned to your offer and deal profile</li>
-            <li>Fixed scope so launch doesn’t drift</li>
-            <li>Clear implementation notes for immediate deployment</li>
-            <li>No bloated decks. No agency theater.</li>
-          </ul>
+        <div class="trustline">Operated by a U.S.-based revenue operations team</div>
+      </div>
+
+      <div class="hero">
+        <div class="badge-row">
+          <span class="pill">B2B Services</span>
+          <span class="pill">Done-For-You Sprint</span>
+          <span class="pill">72h Standard Delivery</span>
+          <span class="pill">Upfront, Fixed Scope</span>
+        </div>
+
+        <h1>Your old leads are not dead.<br/>They were just never reactivated correctly.</h1>
+        <p class="lead muted">ReactivationOps builds and ships a focused reactivation sprint so you can turn dormant pipeline into qualified conversations this week—not “someday” when your team finally has time.</p>
+
+        <div class="row">
+          <a class="btn btn-core" href="https://buy.stripe.com/4gM5kCbDS5mU3R6gaW4Rq00" target="_blank" rel="noopener">Start Core Sprint — $750</a>
+          <a class="btn btn-fast" href="https://buy.stripe.com/aFa5kC7nCcPmbjy2k64Rq01" target="_blank" rel="noopener">Fast Track (48h) — $1,000</a>
+          <a class="btn btn-ghost" href="mailto:hello@reactivationops.com?subject=ReactivationOps%20Scope%20Question">Ask a scope question</a>
+        </div>
+        <p class="fine">Checkout links: <span class="mono">buy.stripe.com/4gM5kCbDS5mU3R6gaW4Rq00</span> and <span class="mono">buy.stripe.com/aFa5kC7nCcPmbjy2k64Rq01</span></p>
+
+        <div class="proof">
+          <div><b>72h</b><span class="muted">Standard delivery from intake completion</span></div>
+          <div><b>5 Assets</b><span class="muted">Segmentation, sequence, follow-ups, reply script, handoff</span></div>
+          <div><b>1 Goal</b><span class="muted">More qualified replies and booked conversations</span></div>
+        </div>
+
+        <div class="identity-strip" aria-label="legitimacy cues">
+          <div><strong>Secure Checkout</strong><br/>Payments processed via Stripe</div>
+          <div><strong>Fixed Scope</strong><br/>Clear deliverables before launch</div>
+          <div><strong>Documented Process</strong><br/>Intake-to-launch handoff framework</div>
+          <div><strong>Response Access</strong><br/><a href="mailto:hello@reactivationops.com">hello@reactivationops.com</a></div>
         </div>
       </div>
-    </div>
 
-    <div class="section">
-      <h2>How ReactivationOps works</h2>
-      <ol class="steps">
-        <li>
-          <b>Secure your sprint</b>
-          <p class="muted">Choose Core or Fast Track and checkout securely with Stripe.</p>
-        </li>
-        <li>
-          <b>Complete intake</b>
-          <p class="muted">Share your offer, ICP, lead source, and current follow-up context.</p>
-        </li>
-        <li>
-          <b>We build your package</b>
-          <p class="muted">We deliver messaging + process assets ready for your team to run.</p>
-        </li>
-        <li>
-          <b>Launch and optimize</b>
-          <p class="muted">You deploy, collect reply data, and receive a 7-day optimization memo.</p>
-        </li>
-      </ol>
-    </div>
-
-    <div class="section faq">
-      <h2>FAQ / Objections</h2>
-      <details>
-        <summary>What if our lead list is old or inconsistent?</summary>
-        <p class="muted">That’s normal. The sprint includes segmentation logic and message positioning designed for stale pipelines, so outreach starts with relevance instead of generic “just checking in.”</p>
-      </details>
-      <details>
-        <summary>Do you run the campaign for us?</summary>
-        <p class="muted">This offer is a done-for-you sprint package (strategy + messaging + scripts + handoff). Your team launches in your stack, which keeps execution in your control.</p>
-      </details>
-      <details>
-        <summary>How quickly can we start?</summary>
-        <p class="muted">Immediately after checkout. Standard delivery is 72 hours from completed intake. Fast Track is prioritized for 48-hour turnaround.</p>
-      </details>
-      <details>
-        <summary>Is there a long-term retainer?</summary>
-        <p class="muted">No. This is fixed-scope, one-time pricing. If you want additional work later, we scope it separately.</p>
-      </details>
-      <details>
-        <summary>How do we know this is right for us before buying?</summary>
-        <p class="muted">Send your context to <a href="mailto:hello@reactivationops.com" style="color:#bdd6ff">hello@reactivationops.com</a>. We’ll quickly confirm fit and recommend the right package.</p>
-      </details>
-    </div>
-
-    <div class="cta">
-      <h2>Choose your rollout speed</h2>
-      <p class="muted">Core Sprint is best for most teams. Fast Track is for teams that need assets in 48 hours.</p>
-      <div class="row">
-        <a class="btn btn-core" href="https://buy.stripe.com/4gM5kCbDS5mU3R6gaW4Rq00" target="_blank" rel="noopener">Buy Core Sprint — $750</a>
-        <a class="btn btn-fast" href="https://buy.stripe.com/aFa5kC7nCcPmbjy2k64Rq01" target="_blank" rel="noopener">Buy Fast Track — $1,000</a>
+      <div class="section">
+        <div class="grid2">
+          <div class="feature-card">
+            <h2>If this sounds familiar, you’re our ideal client.</h2>
+            <ul>
+              <li>You have a list of old leads, but no structured reactivation motion.</li>
+              <li>Your pipeline feels thin, while past opportunities sit untouched.</li>
+              <li>Your team is busy closing work, not rebuilding outbound campaigns.</li>
+              <li>You need momentum now, not a 6-week strategy project.</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h2>What changes after launch</h2>
+            <ul>
+              <li>Old contacts start replying with current intent and timing.</li>
+              <li>Your qualification flow gets tighter and easier to execute.</li>
+              <li>Booking handoffs become faster and cleaner for your sales team.</li>
+              <li>You gain a repeatable reactivation playbook you can reuse.</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <p class="fine" style="margin-top:12px">Prefer to confirm fit first? Email <a href="mailto:hello@reactivationops.com" style="color:#bdd6ff">hello@reactivationops.com</a>.</p>
+
+      <div class="section">
+        <h2>What’s included in the sprint</h2>
+        <div class="grid2">
+          <div class="process-card">
+            <h3>Core deliverables</h3>
+            <ul>
+              <li>Lead segmentation rules for dormant opportunities</li>
+              <li>3-email reactivation sequence</li>
+              <li>2 follow-up variants for non-responders</li>
+              <li>Reply handling + qualification script</li>
+              <li>Booking handoff template for your team</li>
+              <li>7-day optimization memo after launch</li>
+            </ul>
+          </div>
+          <div class="process-card">
+            <h3>Execution standards</h3>
+            <ul>
+              <li>Direct-response copy built for busy B2B buyers</li>
+              <li>Messaging aligned to your offer and deal profile</li>
+              <li>Fixed scope so launch doesn’t drift</li>
+              <li>Clear implementation notes for immediate deployment</li>
+              <li>No bloated decks. No agency theater.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>How ReactivationOps works</h2>
+        <ol class="steps">
+          <li>
+            <b>Secure your sprint</b>
+            <p class="muted">Choose Core or Fast Track and checkout securely with Stripe.</p>
+          </li>
+          <li>
+            <b>Complete intake</b>
+            <p class="muted">Share your offer, ICP, lead source, and current follow-up context.</p>
+          </li>
+          <li>
+            <b>We build your package</b>
+            <p class="muted">We deliver messaging + process assets ready for your team to run.</p>
+          </li>
+          <li>
+            <b>Launch and optimize</b>
+            <p class="muted">You deploy, collect reply data, and receive a 7-day optimization memo.</p>
+          </li>
+        </ol>
+
+        <div class="standards" aria-label="trust architecture standards">
+          <div class="trust-card">
+            <h3>Scope Governance</h3>
+            <p>Every sprint follows a fixed-scope delivery map to reduce ambiguity and protect timeline confidence.</p>
+          </div>
+          <div class="trust-card">
+            <h3>Quality Control</h3>
+            <p>Assets are reviewed for message clarity, qualification intent, and handoff readiness before delivery.</p>
+          </div>
+          <div class="trust-card">
+            <h3>Operational Fit</h3>
+            <p>Final assets are designed for practical use by real sales teams inside existing CRM and outreach workflows.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section faq">
+        <h2>FAQ / Objections</h2>
+        <details>
+          <summary>What if our lead list is old or inconsistent?</summary>
+          <p class="muted">That’s normal. The sprint includes segmentation logic and message positioning designed for stale pipelines, so outreach starts with relevance instead of generic “just checking in.”</p>
+        </details>
+        <details>
+          <summary>Do you run the campaign for us?</summary>
+          <p class="muted">This offer is a done-for-you sprint package (strategy + messaging + scripts + handoff). Your team launches in your stack, which keeps execution in your control.</p>
+        </details>
+        <details>
+          <summary>How quickly can we start?</summary>
+          <p class="muted">Immediately after checkout. Standard delivery is 72 hours from completed intake. Fast Track is prioritized for 48-hour turnaround.</p>
+        </details>
+        <details>
+          <summary>Is there a long-term retainer?</summary>
+          <p class="muted">No. This is fixed-scope, one-time pricing. If you want additional work later, we scope it separately.</p>
+        </details>
+        <details>
+          <summary>How do we know this is right for us before buying?</summary>
+          <p class="muted">Send your context to <a href="mailto:hello@reactivationops.com">hello@reactivationops.com</a>. We’ll quickly confirm fit and recommend the right package.</p>
+        </details>
+      </div>
+
+      <div class="section">
+        <div class="cta">
+          <h2>Choose your rollout speed</h2>
+          <p class="muted">Core Sprint is best for most teams. Fast Track is for teams that need assets in 48 hours.</p>
+          <div class="row">
+            <a class="btn btn-core" href="https://buy.stripe.com/4gM5kCbDS5mU3R6gaW4Rq00" target="_blank" rel="noopener">Buy Core Sprint — $750</a>
+            <a class="btn btn-fast" href="https://buy.stripe.com/aFa5kC7nCcPmbjy2k64Rq01" target="_blank" rel="noopener">Buy Fast Track — $1,000</a>
+          </div>
+          <p class="fine" style="margin-top:12px">Prefer to confirm fit first? Email <a href="mailto:hello@reactivationops.com">hello@reactivationops.com</a>.</p>
+        </div>
+
+        <div class="contact">
+          <div class="legal-card">
+            <h3>Contact & support</h3>
+            <p class="muted">For scope checks, procurement questions, or delivery clarifications, contact <a href="mailto:hello@reactivationops.com">hello@reactivationops.com</a>. We reply with concrete next steps and fit guidance.</p>
+          </div>
+          <div class="legal-card">
+            <h3>Policies</h3>
+            <p class="muted">Review our policy placeholders below:</p>
+            <ul>
+              <li><a href="#privacy" aria-label="Jump to Privacy section">Privacy</a></li>
+              <li><a href="#terms" aria-label="Jump to Terms section">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section anchor-section" id="privacy">
+        <h2>Privacy</h2>
+        <div class="legal-card">
+          <p class="muted">Privacy policy placeholder: full privacy terms can be added here to detail data collection, usage, storage, and communication preferences for ReactivationOps customers and prospects.</p>
+        </div>
+      </div>
+
+      <div class="section anchor-section" id="terms">
+        <h2>Terms</h2>
+        <div class="legal-card">
+          <p class="muted">Terms placeholder: full terms can be added here to define service scope, delivery timelines, payment terms, and limitations for one-time sprint engagements.</p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-top">
+          <div class="brand"><span class="brand-mark">RO</span><span>ReactivationOps</span></div>
+          <div class="footer-links">
+            <a href="#privacy">Privacy</a>
+            <a href="#terms">Terms</a>
+            <a href="mailto:hello@reactivationops.com">Contact</a>
+          </div>
+        </div>
+        <small>© ReactivationOps. All rights reserved. Operated by a U.S.-based revenue operations team.</small>
+      </div>
     </div>
   </div>
-</div>
 </body>
 </html>
